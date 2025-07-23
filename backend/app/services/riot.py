@@ -94,17 +94,17 @@ async def get_summoner_by_puuid(puuid: str):
         return await fetch_riot_game(f"/tft/summoner/v1/summoners/by-puuid/{puuid}")
     return await _cached_fetch(cache_key, fetcher, ttl=60 * 60)
 
-async def get_match_history(puuid: str, start: int = 0, count: int = 20):
+async def get_history_by_puuid(puuid: str, start: int = 0, count: int = 20):
     cache_key = f"history:{puuid}"
     async def fetcher():
-        return await fetch_riot_game(
+        return await fetch_riot_region(
             f"/tft/match/v1/matches/by-puuid/{puuid}/ids",
             params={"start": start, "count": count}
         )
     return await _cached_fetch(cache_key, fetcher, ttl=60 * 60)
 
-async def get_match_detail(match_id: str):
+async def get_match_by_match_id(match_id: str):
     cache_key = f"match:{match_id}"
     async def fetcher():
-        return await fetch_riot_game(f"/tft/match/v1/matches/{match_id}")
+        return await fetch_riot_region(f"/tft/match/v1/matches/{match_id}")
     return await _cached_fetch(cache_key, fetcher, ttl=7 * 24 * 3600)
