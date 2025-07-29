@@ -28,7 +28,9 @@ app.include_router(static.router)
 app.include_router(summoners.router)
 app.include_router(matches.router)
 
-# app.mount("/assets", StaticFiles(directory="assets"), name="assets")
+current_dir = os.path.dirname(os.path.realpath(__file__))
+assets_path = os.path.join(current_dir, "assets")
+app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
 
 if __name__ == "__main__":
     import uvicorn

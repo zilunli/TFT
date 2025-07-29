@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import SearchForm from "../components/SearchForm";
 import SummonerCard from "../components/SummonerCard";
 import { getAccount, getSummoner, getHistory } from "../api/endpoints";
+import MatchHistory from "../components/MatchHistory";
 
 export default function Home() {
-  const [query, setQuery] = useState(null);          // { g, t }
-  const [account, setAccount] = useState(null);      // account JSON
-  const [summoner, setSummoner] = useState(null);    // summoner JSON
-  const [history, setHistory] = useState(null);      // match IDs
+  const [query, setQuery] = useState(null);       
+  const [account, setAccount] = useState(null);
+  const [summoner, setSummoner] = useState(null);
+  const [history, setHistory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
 
-  // Fire when user submits
   useEffect(() => {
     if (!query) return;
     (async () => {
@@ -43,10 +43,8 @@ export default function Home() {
       {summoner && <SummonerCard summoner={summoner} />}
       {history && history.length > 0 && (
         <div>
-          <h3 className="font-semibold mt-4">Recent Matches</h3>
-          <ul className="list-disc ml-6">
-            {history.map(id => <li key={id}>{id}</li>)}
-          </ul>
+          <h3 className="font-semibold mt-4">Match History</h3>
+          <MatchHistory matchIds={history} />
         </div>
       )}
     </div>

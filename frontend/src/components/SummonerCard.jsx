@@ -1,9 +1,8 @@
 export default function SummonerCard({ summoner }) {
   return (
     <div className="border p-3 rounded">
-      <h2 className="font-semibold">{summoner.name}</h2>
-      <p>Level: {summoner.summonerLevel}</p>
-      <p>PUUID: {summoner.puuid}</p>
+      <p>{summoner.profileIconId}</p>
+      {/* <h2 className="font-semibold">{account.gameName}</h2> <p>#{account.tagLine}</p> */}
     </div>
   );
 }

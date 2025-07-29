@@ -108,3 +108,23 @@ async def get_match_by_match_id(match_id: str):
     async def fetcher():
         return await fetch_riot_region(f"/tft/match/v1/matches/{match_id}")
     return await _cached_fetch(cache_key, fetcher, ttl=7 * 24 * 3600)
+
+async def get_queue_type_by_queue_id(queue_id: str):
+    async def fetcher():
+        version = await get_latest_dd_version()
+        url = f"https://ddragon.leagueoflegends.com/cdn/{version}/data/en_US/tft-queues.json"
+        resp = await _game_client.get(url)
+        resp.raise_for_status()
+        return resp.json()["data"]
+    queues = await _cached_fetch("static:queue-types", fetcher, ttl=7*24*3600)
+    return queues.get(queue_id)
+
+async def get_tactician_by_companion_item_id(item_id: str):
+    async def fetcher():
+        version = await get_latest_dd_version()
+        url = f"https://ddragon.leagueoflegends.com/cdn/{version}/data/en_US/tft-tactician.json"
+        resp = await _game_client.get(url)
+        resp.raise_for_status()
+        return resp.json()["data"]
+    tacticians = await _cached_fetch("static:tacticians", fetcher, ttl=7*24*3600)
+    return tacticians.get(str(item_id))

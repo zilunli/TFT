@@ -10,9 +10,15 @@ export const getHistory = (puuid, start = 0, count = 20) =>
   API.get(`/matches/history/${puuid}`, { params: { start, count } }).then(r => r.data);
 
 export const getMatch = (matchId) =>
-  API.get(`/matches/${matchId}`).then(r => r.data);
+  API.get(`/matches/${matchId}`)
 
 export const getChampions = () => API.get(`/static/champions`).then(r => r.data);
 export const getItems     = () => API.get(`/static/items`).then(r => r.data);
 export const getTraits    = () => API.get(`/static/traits`).then(r => r.data);
 export const getAugments  = () => API.get(`/static/augments`).then(r => r.data);
+
+export const getQueueType = (queueId) => 
+  API.get(`/static/queue-types/${queueId}`).then(r => r.data);
+
+export const getTactician = (itemId) =>
+  API.get(`/static/tacticians/${itemId}`).then(r => r.data);

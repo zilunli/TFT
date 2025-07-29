@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.services.riot import get_champions, get_items, get_traits, get_augments
+from app.services.riot import get_champions, get_items, get_traits, get_augments, get_queue_type_by_queue_id, get_tactician_by_companion_item_id
 
 router = APIRouter(prefix="/static", tags=["static"])
 
@@ -18,3 +18,11 @@ async def traits():
 @router.get("/augments")
 async def augments():
     return await get_augments()
+
+@router.get("/queue-types/{queue_id}")
+async def queue_type_by_queue_id(queue_id):
+    return await get_queue_type_by_queue_id(queue_id)
+
+@router.get("/tacticians/{item_id}")
+async def tactician_by_companion_item_id(item_id):
+    return await get_tactician_by_companion_item_id(item_id) 
